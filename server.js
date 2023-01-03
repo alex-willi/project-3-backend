@@ -2,10 +2,9 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
-
-require('dotenv').config
-const PORT = 4000
-
+require('./config/db.connection')
+require('dotenv').config()
+const { PORT } = process.env
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
