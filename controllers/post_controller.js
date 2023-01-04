@@ -31,6 +31,7 @@ router.post('/', async (req,res)=>{
         res.status(400).json({error: err})
     }
 })
+//update
 router.put('/:id', async(req,res)=>{
     try{
         const updatePost = await Posts.findByIdAndUpdate(req.params.id, req.body, {new: true})
@@ -39,6 +40,17 @@ router.put('/:id', async(req,res)=>{
     }catch(err){
         res.status(400).json({error: err})
 
+    }
+})
+//destroy
+router.delete('/:id', async (req,res)=>{
+    try{
+        const destroyPost= await Posts.findByIdAndDelete(req.params.id)
+        res.status(201).json(destroyPost)
+
+    }catch(err){
+
+        res.status(400).json({error: err})
     }
 })
 
