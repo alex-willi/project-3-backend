@@ -11,6 +11,7 @@ router.get('/', async (req,res)=>{
         res.status(400).json({error:err})
     }
 })
+//show
 router.get('/:id', async (req,res)=>{
     try{
         const foundPost = await Posts.findById(req.params.id)
@@ -19,7 +20,6 @@ router.get('/:id', async (req,res)=>{
     res.status(400).json({error:err})
     }
 })
-
 //create
 router.post('/', async (req,res)=>{
     try{
