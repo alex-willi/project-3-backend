@@ -1,23 +1,31 @@
 const express = require('express')
 const router = express.Router()
+
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
+
 const Posts = require('../models/Posts')
+const Authors = require('../models/Authors')
 
 //index
-router.get('/', async (req,res)=>{
+router.get('/', async (req,res,next)=>{
     try{
-        const allPosts = await Posts.find({})
+        const allPosts = await Posts.find({}).populate('author')
         res.status(200).json(allPosts)
     }catch(err){
         res.status(400).json({error:err})
+        next(err)
     }
 })
 //show
-router.get('/:id', async (req,res)=>{
+router.get('/:id', async (req,res,next)=>{
     try{
-        const foundPost = await Posts.findById(req.params.id)
-        res.status(200).json(foundPost)
+        const foundAuthor = await Authors.findById(req.params.id)
+        const authorPosts = await Posts.find({author:req.params.id})
+        res.status(200).json({author:foundAuthor, posts: authorPosts})
     }catch(err){
     res.status(400).json({error:err})
+    next(err)
     }
 })
 //create
