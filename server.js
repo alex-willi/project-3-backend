@@ -9,6 +9,7 @@ require('dotenv').config()
 const { PORT } = process.env
 
 app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 app.use(morgan('dev'))
 app.use(cors())
 app.use('/home',authorsController)

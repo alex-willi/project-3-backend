@@ -6,7 +6,7 @@ const postsSchema = new mongoose.Schema({
     body: String,
     author:{
         type: mongoose.Types.ObjectId,
-        ref: "Authors"
+        ref: "authors"
     }
 
 })
