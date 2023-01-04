@@ -3,7 +3,11 @@ const mongoose = require('mongoose')
 const postsSchema = new mongoose.Schema({
     title: String,
     photo: String,
-    body: String
+    body: String,
+    author:{
+        type: mongoose.Types.ObjectId,
+        ref: "Authors"
+    }
 
 })
 

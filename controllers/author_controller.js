@@ -10,6 +10,7 @@ router.get('/', async (req,res)=>{
         res.status(400).json({error:err})
     }
 })
+//show
 router.get('/:id', async (req,res)=>{
     try{
         const foundAuthor = await Authors.findById(req.params.id)
