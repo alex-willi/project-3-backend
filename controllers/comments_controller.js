@@ -38,5 +38,15 @@ router.post('/', async (req,res)=>{
         res.status(400).json({error: err})
     }
 })
+//update
+router.put('/:id', async(req,res)=>{
+    try{
+        const updateComment = await Comments.findByIdAndUpdate(req.params.id, req.body, {new: true})
+        res.status(201).json(updateComment)
 
+    }catch(err){
+        res.status(400).json({error: err})
+
+    }
+})
 module.exports = router
