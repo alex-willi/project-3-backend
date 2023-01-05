@@ -17,12 +17,22 @@ router.get('/', async (req,res,next)=>{
         next(err)
     }
 })
-
+router.get('/:id', async (req,res,next)=>{
+    try{
+        const foundPost = await Posts.findById(req.params.id)
+        const postComments = await Comments.find({post:req.params.id})
+        res.status(200).json({post:foundPost, comments: postComments})
+    }catch(err){
+    res.status(400).json({error:err})
+    next(err)
+    }
+})
+//create
 router.post('/', async (req,res)=>{
     try{
         console.log("hitting post route")
-        const newPost = await Comments.create(req.body)
-        res.status(201).json(newPost)
+        const newComment = await Comments.create(req.body)
+        res.status(201).json(newComment)
     }catch(err){
         console.log(err)
         res.status(400).json({error: err})
