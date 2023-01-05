@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const Authors = require('../models/Authors')
+const Posts = require('../models/Posts')
+
 //index
 router.get('/', async (req,res)=>{
     try{
@@ -11,12 +13,14 @@ router.get('/', async (req,res)=>{
     }
 })
 //show
-router.get('/:id', async (req,res)=>{
+router.get('/:id', async (req,res,next)=>{
     try{
         const foundAuthor = await Authors.findById(req.params.id)
-        res.status(200).json(foundAuthor)
+        const authorPosts = await Posts.find({author:req.params.id})
+        res.status(200).json({author:foundAuthor, posts: authorPosts})
     }catch(err){
     res.status(400).json({error:err})
+    next(err)
     }
 })
 //create
