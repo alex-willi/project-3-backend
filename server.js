@@ -5,6 +5,7 @@ const morgan = require('morgan')
 require('./config/db.connection')
 const authorsController = require('./controllers/author_controller')
 const postsController = require('./controllers/post_controller')
+const commentsController = require('./controllers/comments_controller')
 require('dotenv').config()
 const { PORT } = process.env
 
@@ -14,6 +15,7 @@ app.use(morgan('dev'))
 app.use(cors())
 app.use('/home',authorsController)
 app.use('/posts',postsController)
+app.use('/comments', commentsController)
 
 app.get('/', (req,res)=>{
     res.redirect('/home')
