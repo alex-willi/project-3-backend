@@ -4,10 +4,10 @@ const authorsSchema = new mongoose.Schema({
     name:{
         type:String
     },
-    post:{
+    post:[{
         type: mongoose.Types.ObjectId,
         ref: "posts"
-    }
+    }]
 })
 
 const Authors = mongoose.model("authors", authorsSchema)
