@@ -8,7 +8,7 @@ router.get('/', async (req,res)=>{
     try{
         const allAuthors = await (Authors.find({}))
         res.status(200).json(allAuthors)
-    }catch(err){
+    } catch (err) {
         res.status(400).json({error:err})
     }
 })
@@ -16,11 +16,12 @@ router.get('/', async (req,res)=>{
 router.get('/:id', async (req,res,next)=>{
     try{
         const foundAuthor = await Authors.findById(req.params.id)
-        const authorPosts = await Posts.find({author:req.params.id})
+        const authorPosts = await Posts.find({author: req.params.id})
+
         res.status(200).json({author:foundAuthor, posts: authorPosts})
-    }catch(err){
-    res.status(400).json({error:err})
-    next(err)
+    } catch(err) {
+      res.status(400).json({error:err})
+      next(err)
     }
 })
 //create
