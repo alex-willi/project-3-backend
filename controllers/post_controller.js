@@ -29,7 +29,7 @@ router.get('/:id', async (req,res,next)=>{
     }
 })
 //create
-router.post('/', async (req,res)=>{
+router.post('/:id', async (req,res)=>{
     try{
         console.log("hitting post route")
         const newPost = await Posts.create(req.body)
