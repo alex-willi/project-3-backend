@@ -1,10 +1,9 @@
 const mongoose = require('mongoose')
 
 const authorsSchema = new mongoose.Schema({
-    name:{
-        type:String
+    name: {
+        type: String, unique: true
     }
-  
 })
 
 const Authors = mongoose.model("authors", authorsSchema)
