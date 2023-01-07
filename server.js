@@ -10,15 +10,15 @@ require('dotenv').config()
 const { PORT } = process.env
 
 app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }))
 app.use(morgan('dev'))
 app.use(cors())
-app.use('/home',authorsController)
-app.use('/posts',postsController)
+app.use('/authors', authorsController)
+app.use('/posts', postsController)
 app.use('/comments', commentsController)
 
-app.get('/', (req,res)=>{
-    res.redirect('/home')
+app.get('/', (req, res) => {
+    res.redirect('/authors')
 })
 
-app.listen(PORT, ()=>console.log(`Listening to port: ${PORT}`))
+app.listen(PORT, () => console.log(`Listening to port: ${PORT}`))
