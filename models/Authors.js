@@ -1,12 +1,11 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const authorsSchema = new mongoose.Schema({
     name: {
-        type: String,
-        unique: true,
-    },
-});
+        type: String, unique: true
+    }
+})
 
-const Authors = mongoose.model("authors", authorsSchema);
+const Authors = mongoose.model("authors", authorsSchema)
 
-module.exports = Authors;
+module.exports = Authors
