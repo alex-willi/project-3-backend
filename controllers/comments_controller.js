@@ -17,16 +17,16 @@ router.get("/", async(req, res, next) => {
         next(err);
     }
 });
-router.get("/:id", async(req, res, next) => {
-    try {
-        const foundPost = await Posts.findById(req.params.id);
-        const postComments = await Comments.find({ post: req.params.id });
-        res.status(200).json({ post: foundPost, comments: postComments });
-    } catch (err) {
-        res.status(400).json({ error: err });
-        next(err);
+router.get('/:id', async (req,res,next)=>{
+    try{
+        const foundPost = await Posts.findById(req.params.id)
+        const postComments = await Comments.find({author:req.params.id})
+        res.status(200).json({post:foundPost, comment: postComments})
+    }catch(err){
+    res.status(400).json({error:err})
+    next(err)
     }
-});
+})
 //create
 router.post("/", async(req, res) => {
     try {
