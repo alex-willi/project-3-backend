@@ -5,61 +5,60 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
 const Posts = require('../models/Posts')
-const Authors = require('../models/Authors')
+const Comments =require('../models/Comments')
 
 //index
-router.get('/', async (req, res, next) => {
-    try {
+router.get('/', async (req,res,next)=>{
+    try{
         const allPosts = await Posts.find({}).populate('author')
         res.status(200).json(allPosts)
-    } catch (err) {
-        res.status(400).json({ error: err })
+    }catch(err){
+        res.status(400).json({error:err})
         next(err)
     }
 })
 //show
-router.get('/:id', async (req, res, next) => {
-    try {
-        const post = await Posts.findById(req.params.id)
-        const author = await Authors.findById(post.author)
-
-        res.status(200).json({ post: post, author: author })
-    } catch (err) {
-        res.status(400).json({ error: err })
-        next(err)
+router.get('/:id', async (req,res,next)=>{
+    try{
+        const foundPost = await Posts.findById(req.params.id)
+        const postComments = await Comments.find({author:req.params.id})
+        res.status(200).json({post:foundPost, comment: postComments})
+    }catch(err){
+    res.status(400).json({error:err})
+    next(err)
     }
 })
 //create
-router.post('/:id', async (req, res) => {
-    try {
+router.post('/:id', async (req,res)=>{
+    try{
         console.log("hitting post route")
         const newPost = await Posts.create(req.body)
         res.status(201).json(newPost)
-    } catch (err) {
+    }catch(err){
         console.log(err)
-        res.status(400).json({ error: err })
+        res.status(400).json({error: err})
     }
 })
 //update
-router.put('/:id', async (req, res) => {
-    try {
-        const updatePost = await Posts.findByIdAndUpdate(req.params.id, req.body, { new: true })
+router.put('/:id', async(req,res)=>{
+    try{
+        const updatePost = await Posts.findByIdAndUpdate(req.params.id, req.body, {new: true})
         res.status(201).json(updatePost)
 
-    } catch (err) {
-        res.status(400).json({ error: err })
+    }catch(err){
+        res.status(400).json({error: err})
 
     }
 })
 //destroy
-router.delete('/:id', async (req, res) => {
-    try {
-        const destroyPost = await Posts.findByIdAndDelete(req.params.id)
+router.delete('/:id', async (req,res)=>{
+    try{
+        const destroyPost= await Posts.findByIdAndDelete(req.params.id)
         res.status(201).json(destroyPost)
 
-    } catch (err) {
+    }catch(err){
 
-        res.status(400).json({ error: err })
+        res.status(400).json({error: err})
     }
 })
 
