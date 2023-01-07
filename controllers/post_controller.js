@@ -20,9 +20,10 @@ router.get('/', async (req, res, next) => {
 //show
 router.get('/:id', async (req, res, next) => {
     try {
-        const foundAuthor = await Authors.findById(req.params.id)
-        const authorPosts = await Posts.find({ author: req.params.id })
-        res.status(200).json({ author: foundAuthor, posts: authorPosts })
+        const post = await Posts.findById(req.params.id)
+        const author = await Authors.findById(post.author)
+
+        res.status(200).json({ post: post, author: author })
     } catch (err) {
         res.status(400).json({ error: err })
         next(err)

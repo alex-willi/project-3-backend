@@ -17,12 +17,12 @@ router.get('/:id', async (req, res, next) => {
     try {
         const foundAuthor = await Authors.findById(req.params.id)
         const authorPosts = await Posts.find({ author: req.params.id })
+
         res.status(200).json({ author: foundAuthor, posts: authorPosts })
     } catch (err) {
         res.status(400).json({ error: err })
         next(err)
     }
-    console.log(foundAuthor, authorPosts);
 })
 //create
 router.post('/', async (req, res) => {

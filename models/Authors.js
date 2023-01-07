@@ -1,12 +1,8 @@
 const mongoose = require('mongoose')
 
 const authorsSchema = new mongoose.Schema({
-    name:{
-        type:String
-    },
-    post:{
-        type: mongoose.Types.ObjectId,
-        ref: "posts"
+    name: {
+        type: String, unique: true
     }
 })
 
