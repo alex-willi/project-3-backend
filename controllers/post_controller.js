@@ -21,7 +21,7 @@ router.get('/', async (req,res,next)=>{
 router.get('/:id', async (req,res,next)=>{
     try{
         const foundPost = await Posts.findById(req.params.id)
-        const postComments = await Comments.find({author:req.params.id})
+        const postComments = await Comments.find({post:req.params.id})
         res.status(200).json({post:foundPost, comment: postComments})
     }catch(err){
     res.status(400).json({error:err})
@@ -29,7 +29,7 @@ router.get('/:id', async (req,res,next)=>{
     }
 })
 //create
-router.post('/:id', async (req,res)=>{
+router.post('/', async (req,res)=>{
     try{
         console.log("hitting post route")
         const newPost = await Posts.create(req.body)
@@ -54,8 +54,8 @@ router.put('/:id', async(req,res)=>{
 router.delete('/:id', async (req,res)=>{
     try{
         const destroyPost= await Posts.findByIdAndDelete(req.params.id)
-        res.status(201).json(destroyPost)
-
+        const destroyComments = await Comments.deleteMany({ post: req.params.id })
+        res.status(200).json({post:destroyPost, comment:destroyComments})
     }catch(err){
 
         res.status(400).json({error: err})
