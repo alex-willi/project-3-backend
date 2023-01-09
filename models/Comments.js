@@ -5,7 +5,7 @@ const commentsSchema = new mongoose.Schema({
     comment: String,
     post: {
         type: mongoose.Types.ObjectId,
-        ref: "posts",
+        ref: "Post",
     },
 });
 
